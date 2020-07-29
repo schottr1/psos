@@ -83,7 +83,7 @@ To set up and launch the server application:
 
 1. Go to the `code/server-app` directory of the cloned repo.
 1. Copy the `.env.example` file in the `code/server-app` directory, and create a new file named `.env`.
-1. Edit the newly created `.env` file and update the `ASSISTANT_URL`, `ASSISTANT_ID`, and `ASSISTANT_IAM_APIKEY` with the values from the dialog skill's API Detail page in Watson Assistant, from Step 1. Also, update the `CLOUDANT_ID` and `CLOUDANT_IAM_APIKEY` with the values from the service credential you created in Step 2. (Note that the `username` from the credential is what should be used for the `CLOUDANT_ID`.)
+1. Edit the newly created `.env` file and updateß the `CLOUDANT_ID` and `CLOUDANT_IAM_APIKEY` with the values from the service credential you created in Step 2. (Note that the `username` from the credential is what should be used for the `CLOUDANT_ID`.)
 1. Edit the **name** value in the `manifest.yml` file to your application name (for example, _my-app-name_).
 1. From a terminal:
     1. Go to the `code/server-app` directory of the cloned repo.
