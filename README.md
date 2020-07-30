@@ -106,7 +106,6 @@ To run the mobile application (using the Xcode iOS Simulator):
 1. Copy the `.env.example` file in the `code/mobile-app` directory, and create a file named `.env`.
 1. Edit the newly created `.env` file:
     - Update the `STARTER_KIT_SERVER_URL` with the URL to the server app launched in the previous step.
-    - Update the `HERE_APIKEY` with the API key generated in the HERE Developer Portal.
 1. From a terminal:
     1. Go to the `code/mobile-app` directory.
     1. Install the dependencies: `npm install`.
