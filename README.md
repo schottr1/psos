@@ -1,11 +1,11 @@
 # psos
-Theme 2 - Police Suppression Order System.
+Police Suppression Order System.
 
 This solution starter was created by technologists from IBM.
 
 ## Authors
 
-Henry Nash, Thomas Schott, Kallie Fergerson, Andrea Ritterbeck, Benjamin Chance, Jeimmy Cesar, Jeremy O'Mard, Joe Nichols, Kimberly Holmes, Osai O Osaigbovo, Paul Jennas, Tiffani Rice, Victoria Kanicka
+Jimmy Cesar, Benjamin Chance, Kallie Fergerson, Kimberly Holmes, Paul Jennas, Victoria Kanicka, Henry Nash, Joe Nichols, Jeremy O'Mard, Osai O Osaigbovo, Tiffani Rice, Andrea Ritterbeck, Thomas Schott
 
 ## Contents
 
