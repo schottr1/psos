@@ -97,7 +97,7 @@ To set up and launch the server application:
             1. Target a Cloud Foundry org and space: `ibmcloud target --cf`.
             1. Push the app to IBM Cloud: `ibmcloud app push`.
             1. The server can be accessed at a URL using the **name** given in the `manifest.yml` file (for example,  <https://my-app-name.bluemix.net>).
-    1. The api supports a swagger doc in interface, served from `url`/api-docs. Subsitutue the actual server address above for `url`.
+    1. The api supports a swagger doc interface in a browser, served from `url`/api-docs. Substitutue your particular server address for `url` e.g. <http://localhost:3000/api-docs> if running locally.
 
 ### 3. Run the mobile application
 
