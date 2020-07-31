@@ -1,0 +1,40 @@
+# Roles
+
+## Viewer 
+The viewer role does not require registration or any kind of user account. 
+Anyone who accesses the service can view suppression orders.
+
+## Contributor 
+The contributor role requires user account creation. This account is created 
+using email and password. The account is verified by an email sent to the user's
+provided email address. As a contributor one can search, read, and create 
+suppression orders. They can also flag other suppression orders for review if 
+they feel the suppression order is fraudulent. Contributors can also delete 
+suppression orders which they submitted and flag suppression orders submitted 
+by others for review if they feel the suppression order contains false 
+information.
+
+## Moderators 
+The moderator account is a role assigned by administrator. This user has
+permission to remove suppression orders found to contain false information.
+
+## Administrator
+The administrator account is set up when the software is deployed. This user has
+permission change other user roles, remove other users, to remove suppression 
+orders submitted by any user or to temporarily or permanently disable 
+contributors who are found to be submitting false information. 
+
+
+# Segregation of Duties Matrix
+
+|                                | Administrator | Moderator | Contributor | Viewer |
+|--------------------------------|---------------|-----------|-------------|--------|
+| Remove Users                   | x             |           |             |        |
+| Change User Roles              | x             |           |             |        |
+| Delete All Suppression Orders  | x             | x         |             |        |
+| Flag Suppression Orders        | x             | x         | x           |        |
+| Delete Own Suppression Orders  | x             | x         | x           |        |
+| Create Suppression Orders      | x             | x         | x           |        |
+| Search Suppression Orders      | x             | x         | x           | x      |
+| Read Suppression Orders        | x             | x         | x           | x      |
+
