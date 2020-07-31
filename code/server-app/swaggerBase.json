@@ -1,0 +1,10 @@
+{
+  "swagger": "2.0",
+  "host": "psos.swagger.io",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "info": {
+    "title": "Police Suppression Order System API",
+    "version": "0.1"
+  }
+}
