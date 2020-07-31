@@ -1,11 +1,11 @@
 # psos
-Theme 2 - Police Suppression Order System.
+Police Suppression Order System.
 
 This solution starter was created by technologists from IBM.
 
 ## Authors
 
-Henry Nash, Thomas Schott, Kallie Fergerson, Andrea Ritterbeck, Benjamin Chance, Jeimmy Cesar, Jeremy O'Mard, Joe Nichols, Kimberly Holmes, Osai O Osaigbovo, Paul Jennas, Tiffani Rice, Victoria Kanicka
+Jimmy Cesar, Benjamin Chance, Kallie Fergerson, Kimberly Holmes, Paul Jennas, Victoria Kanicka, Henry Nash, Joe Nichols, Jeremy O'Mard, Osai O Osaigbovo, Tiffani Rice, Andrea Ritterbeck, Thomas Schott
 
 ## Contents
 
@@ -97,6 +97,7 @@ To set up and launch the server application:
             1. Target a Cloud Foundry org and space: `ibmcloud target --cf`.
             1. Push the app to IBM Cloud: `ibmcloud app push`.
             1. The server can be accessed at a URL using the **name** given in the `manifest.yml` file (for example,  <https://my-app-name.bluemix.net>).
+    1. The api supports a swagger doc interface in a browser, served from `url`/api-docs. Substitutue your particular server address for `url` e.g. <http://localhost:3000/api-docs> if running locally.
 
 ### 3. Run the mobile application
 
