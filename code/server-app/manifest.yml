@@ -1,5 +1,5 @@
 applications:
-- name: server-app
+- name: psos-server
   command: npm start
   path: .
   memory: 256M

@@ -17,7 +17,7 @@ var cloudant = new Cloudant({
 
 // Cloudant DB reference
 let db;
-let db_name = "community_db";
+let db_name = "suppression_db";
 
 /**
  * Connects to the Cloudant DB, creating it if does not already exist
@@ -71,31 +71,26 @@ const dbCloudantConnect = () => {
 })();
 
 /**
- * Find all resources that match the specified partial name.
+ * Find all suppression objects that match the specified parameters.
  * 
- * @param {String} type
- * @param {String} partialName
- * @param {String} userID
+ * @param {String} state
+ * @param {String} primaryOfficerLastName
  * 
  * @return {Promise} Promise - 
- *  resolve(): all resource objects that contain the partial
- *          name, type or userID provided, or an empty array if nothing
+ *  resolve(): all suppression objects that contain the partial
+ *          primaryOfficerLastName or state provided, or an empty array if nothing
  *          could be located that matches. 
  *  reject(): the err object from the underlying data store
  */
-function find(type, partialName, userID) {
+function find(state, primaryOfficerLastName) {
     return new Promise((resolve, reject) => {
         let selector = {}
-        if (type) {
-            selector['type'] = type;
+        if (state) {
+            selector['state'] = state;
         }
-        if (partialName) {
-            let search = `(?i).*${partialName}.*`;
-            selector['name'] = {'$regex': search};
-
-        }
-        if (userID) {
-            selector['userID'] = userID;
+        if (primaryOfficerLastName) {
+            let search = `(?i).*${primaryOfficerLastName}.*`;
+            selector['primaryOfficers'] = { "$elemMatch": { "lastName": {'$regex': search}}}
         }
         
         db.find({ 
@@ -111,7 +106,28 @@ function find(type, partialName, userID) {
 }
 
 /**
- * Delete a resource that matches a ID.
+ * Get a suppression object that matches an ID.
+ * 
+ * @param {String} id
+ * 
+ * @return {Promise} Promise - 
+ *  resolve(): Status code as to whether to the object was found
+ *  reject(): the err object from the underlying data store
+ */
+function getById(id) {
+    return new Promise((resolve, reject) => {
+        db.get(id, (err, document) => {
+            if (err) {
+                resolve(err.statusCode);
+            } else {
+                resolve({ data: JSON.stringify(document.doc), statusCode: 200});
+            }            
+        })
+    });
+}
+
+/**
+ * Delete a suppression object that matches an ID.
  * 
  * @param {String} id
  * 
@@ -138,33 +154,46 @@ function deleteById(id, rev) {
 }
 
 /**
- * Create a resource with the specified attributes
+ * Create a suppression object with the specified attributes
  * 
- * @param {String} type - the type of the item
- * @param {String} name - the name of the item
- * @param {String} description - the description of the item
- * @param {String} quantity - the quantity available 
- * @param {String} location - the GPS location of the item
- * @param {String} contact - the contact info 
- * @param {String} userID - the ID of the user 
+ * @param {String} date - the date the order was filed
+ * @param {String} state - the satte in which the order was filed
+ * @param {String} caseNumber - the case number of the order
+ * @param {String} summary - the summary description of the order 
+ * @param {Boolean} motionGranted - was the order granted?
+ * @param {Boolean} writtenOrder - was this a written order? 
+ * @param {Boolean} foundNotCredible - were the officer(s) found Not Credible? 
+ * @param {Array} issuesLitigated - list of issues litigated? 
+ * @param {Object} prosecutor - proesctor lastName and firstName
+ * @param {Object} defenseAttorney - defense attorney lastName and firstName
+ * @param {String} verifiedDate - the date this data was verified against the actual order?
+ * @param {Array} primaryOfficers - list of primary officers names
+ * @param {Array} attendingOfficers - list of named officers who were attending
  * 
  * @return {Promise} - promise that will be resolved (or rejected)
  * when the call to the DB completes
  */
-function create(type, name, description, quantity, location, contact, userID) {
+function create(date, state, caseNumber, summary, motionGranted, writtenOrder, foundNotCredible, issuesLitigated,
+    prosecutor, defenseAttorney, verifiedDate, primaryOfficers, attendingOfficers) {
     return new Promise((resolve, reject) => {
         let itemId = uuidv4();
         let whenCreated = Date.now();
         let item = {
             _id: itemId,
             id: itemId,
-            type: type,
-            name: name,
-            description: description,
-            quantity: quantity,
-            location: location,
-            contact: contact,
-            userID: userID,
+            date: date,
+            state: state,
+            caseNumber: caseNumber,
+            summary: summary,
+            motionGranted: motionGranted,
+            writtenOrder: writtenOrder,
+            foundNotCredible: foundNotCredible,
+            issuesLitigated: issuesLitigated,
+            prosecutor: prosecutor,
+            defenseAttorney: defenseAttorney,
+            verifiedDate: verifiedDate,
+            primaryOfficers: primaryOfficers,
+            attendingOfficers: attendingOfficers,
             whenCreated: whenCreated
         };
         db.insert(item, (err, result) => {
@@ -179,7 +208,7 @@ function create(type, name, description, quantity, location, contact, userID) {
 }
 
 /**
- * Update a resource with the requested new attribute values
+ * Update a suppression object with the requested new attribute values
  * 
  * @param {String} id - the ID of the item (required)
  * 
@@ -231,5 +260,6 @@ module.exports = {
     deleteById: deleteById,
     create: create,
     update: update,
-    find: find
+    find: find,
+    getById: getById
   };

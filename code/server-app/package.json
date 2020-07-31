@@ -1,7 +1,7 @@
 {
-  "name": "solution-starter-kit-cooperation-2020-server",
+  "name": "police-suppression-order-system",
   "version": "0.0.1",
-  "description": "Call for Code 2020 solution starter kit for community collaboration",
+  "description": "System for enabling access to police suppresssion orders",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,15 +11,17 @@
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "ibm-watson": "^5.4.0"
+    "ibm-watson": "^5.4.0",
+    "swagger-inline": "^3.2.0",
+    "swagger-ui-express": "^4.1.4"
   },
-  "homepage": "https://github.com/Call-for-Code/Solution-Starter-Kit-Cooperation-2020#readme",
+  "homepage": "https://github.com/embrace-call-for-code/psos#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Call-for-Code/Solution-Starter-Kit-Cooperation-2020.git"
+    "url": "git+https://github.com/embrace-call-for-code/psos.git"
   },
   "bugs": {
-    "url": "https://github.com/Call-for-Code/Solution-Starter-Kit-Cooperation-2020/issues"
+    "url": "https://github.com/embrace-call-for-code/psos/issues"
   },
   "license": "Apache-2.0"
 }
