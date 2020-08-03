@@ -68,7 +68,7 @@ TBA
 
 ### 1: Provision a CouchDB instance using Cloudant
 
-TBA - [if running in the sandboax, there is a short cut to this]
+TBA - [if running in the sandbox, there is a short cut to this]
 
 Log into the IBM Cloud and provision a [CouchDB instance using Cloudant](https://www.ibm.com/cloud/cloudant).
 
