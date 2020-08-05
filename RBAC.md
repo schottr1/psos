@@ -2,6 +2,7 @@
 
 ## Overview
 IBM Cloud App ID Free Tier allows 1000 monthly events and 1000 authorized users.
+
 [IBM Cloud App ID](https://www.ibm.com/cloud/app-id)
 
 ## Benefits
@@ -15,7 +16,7 @@ IBM Cloud App ID Free Tier allows 1000 monthly events and 1000 authorized users.
 1. Create user roles and attach scopes to the roles
 
 ## Documentation
-[Using IBM Cloud App ID with Node.js](https://cloud.ibm.com/docs/appid?topic=appid-web-apps)  node.js
+[Using IBM Cloud App ID with Node.js](https://cloud.ibm.com/docs/appid?topic=appid-web-apps)
 
 # Roles
 
@@ -43,7 +44,7 @@ permission change other user roles, remove other users, to remove suppression
 orders submitted by any user or to temporarily or permanently disable
 contributors who are found to be submitting false information.
 > We may want the Administrator to perform the user permission functions through
-the IBM Cloud App ID portal instead of integrating these features with the app. 
+the IBM Cloud App ID portal instead of integrating these features with the app.
 
 
 # Segregation of Duties Matrix
