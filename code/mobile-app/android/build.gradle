@@ -37,8 +37,8 @@ allprojects {
     }
 }
 
-android {
-  sourceSets { 
-    main { assets.srcDirs = ['src/main/assets', '../../html'] } 
-  }
-}
+// android {
+//   sourceSets { 
+//     main { assets.srcDirs = ['src/main/assets', '../../html'] } 
+//   }
+//  }
