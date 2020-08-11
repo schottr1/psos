@@ -1,0 +1,238 @@
+// .layerPreferenceContent .bx--modal-header{
+//     padding-top: 0rem;  
+//     display: none;
+// }
+.layerPreferenceContent .bx--modal-content{
+     padding-top: 0rem;
+     padding-left: 0rem;
+}
+.primaryTabs a.bx--tabs__nav-link{
+    width: 12rem;
+}
+.secondaryTab a.bx--tabs__nav-link{
+    width: 10.5rem;
+}
+
+.addTab svg{
+margin: -5px;
+}
+.addNewTitle{
+padding-left: 10px;
+}
+.tabContent{
+padding: 16px;
+}
+.bx--modal-container--lg .bx--modal-header, .bx--modal-container--lg .bx--modal-content, .bx--modal-container--lg .bx--modal-content__regular-content {
+ padding-right: 0%; 
+}
+.riskSelection,.naturalEventSelection,.pointsofInterestSelection,.mitigationPlansSelection,.covid19Selection{
+    float: right;
+}
+.risktypes,.alertDataSourcetypes, .naturalEventtypes,.pointsofInteresttypes,.mitigationPlanstypes,.situationalAwarenesstypes{
+padding-top: 14px;
+padding-bottom: 14px;
+border-bottom: 1px solid #cbcecb;
+}
+.risktypes svg,.alertDataSourcetypes svg,.naturalEventtypes svg,.pointsofInteresttypes svg,.mitigationPlanstypes svg,.situationalAwarenesstypes svg,.customLocationtypes svg{
+margin-bottom: -6px;
+margin-right: 12px;
+fill: #1161fb;
+}
+.naturalEventinfo{
+    color:#a3a19d
+}
+.covid19types,.alerttypes,.situationalAwarenessPrefTypes,.earthquakestypes{
+    padding-top: 5px;  
+    padding-bottom: 5px;  
+    padding-left: 5px;  
+}
+.subTypes{
+    padding-left: 20px;
+    padding-top:5px;
+}
+.categoryCheckBoxGroup .bx--form-item{
+    display: inline-flex
+}
+.categoryCheckBoxGroup .bx--form-item .bx--checkbox-label{
+    padding-right: 10px;
+}
+// .subTypesSlider .bx--slider {
+//     position: relative;
+//     width: 100%;
+//     max-width: 50rem;
+//     min-width: 42.5rem;
+//     margin-left: 2em;
+//     margin-right: 3.5em;
+// }
+.subTypesSlider .bx--slider-container{
+    width: 80% !important;
+}
+.subTypesSlider .bx--slider__thumb{
+    height: 1.1rem;
+    width: 1.1rem;
+    background: #1161fb;
+}
+.subTypesSlider .bx--slider__filled-track{
+    height: 0.7rem;
+    background: #1161fb;   
+}
+.subTypesSlider .bx--slider__track{
+    height: 0.7rem; 
+}
+.subTypesSlider{
+padding-left: 34px;
+padding-top: 13px;
+}
+
+ .notificationSlider .bx--slider {
+    position: relative;
+    width: 100%;
+    margin: 0 1rem;
+    max-width: 40rem;
+    min-width: unset;
+ }
+.notificationSlider .bx--slider-container{
+    width: 100% !important;
+}
+.notificationSlider .bx--slider__thumb{
+    height: 1.1rem;
+    width: 1.1rem;
+    background: #1161fb;
+}
+.notificationSlider .bx--slider__filled-track{
+    height: 0.7rem;
+    background: #1161fb;   
+}
+.notificationSlider .bx--slider__track{
+    height: 0.7rem; 
+}
+.notificationSlider{
+padding-left: 34px;
+padding-top: 13px;
+}
+.situationalAwarenessPrefValue{
+padding-right: 12px;
+}
+.viewSlider .bx--label,.viewSlider .bx--slider__range-label{
+    color:white;
+}
+.viewSlider  .bx--slider {
+    max-width: 20rem;
+    min-width: 15rem;
+    margin-left: 1em;
+    margin-right: 1.5em;
+    position: relative;
+    width: 100%;
+}
+.viewSlider .bx--slider__thumb{
+    background: #1161fb;
+}
+.tooltipForTransparency .bx--tooltip__trigger.bx--tooltip__trigger--definition.bx--tooltip--bottom::after, .bx--tooltip__trigger.bx--tooltip__trigger--definition.bx--tooltip--bottom .bx--assistive-text, .bx--tooltip__trigger.bx--tooltip__trigger--definition.bx--tooltip--bottom + .bx--assistive-text{
+    height: 5em;
+    width:21rem;
+    max-width: 21rem;
+}
+.viewSlider .bx--slider__filled-track{
+    background: #1161fb;   
+}
+.transparencypercentage{
+   color:blue; 
+}
+.bx--tooltip__trigger{
+    border-bottom: 0px;
+}
+
+
+.tabContentForMyNotification .bx--data-table th{
+    background-color: #f4f4f4;
+}
+.tabContentForMyNotification  .bx--table-header-label{
+    color: #4e4e4e;
+}
+.tabContentForMyNotification .AlertSubTypes{
+    padding-left: 28px;
+    padding-top: 12px;
+}
+.tabContentForMyNotification .bx--select-input__wrapper {
+    width: 200px;
+}  
+// .bx--select__arrow{
+//     right: -3rem;
+// } 
+.tabContentForMyNotification .bx--select-input{
+background-color: #f4f4f4 !important;
+width: 14rem !important;
+min-width: 16rem !important;
+}
+.tabContentForMyNotification .bx--form-item{
+    padding-right: 28px !important;  
+}
+.forLocationSelectBox{
+    display: inline-flex !important;
+    margin-top: 12px;
+}
+.forMyLocationSelectGroup{
+    display: inline-flex !important;
+    margin-top: 0px;
+}
+.tabContentForMyNotification .bx--select-input__wrapper {
+    width: 263px;
+}
+.tabContentForMyNotification .bx--label{
+padding-left: 16px;
+margin-top: 1rem;
+margin-bottom: 0rem;
+font-size: 0.9rem;
+}
+
+.customLocationtypes{
+    padding-top: 12px;
+    padding-left: 13px; 
+}
+.tabContentForMyNotification .bx--text-area{
+    width: 16rem;
+    background-color: #f4f4f4;
+}
+.forOtherGroup{
+display: inline-flex;
+}
+.myNotification-content .bx--form-item{
+    margin-top: 17px;
+}
+.myNotification-content .bx--fieldset{
+    margin-top: 2rem;  
+}
+.myNotification-content .bx--label{
+    padding-left: 0px !important;
+}
+.notificationEmail .bx--text-input {
+    width: 17rem;
+    background-color: #f4f4f4;
+}
+.notificationEmail .bx--label{
+    margin-bottom: 1rem;
+}
+.stromContainer,.severityNotificationContainer{
+    display: inline-flex;
+}
+.stromContainer .bx--label,.severityNotificationContainer .bx--label{
+    margin-bottom: 14px;
+}
+.stromeLabel,.severityLabel{
+padding-top: 26px;
+padding-bottom: 10px;
+}
+.pushCheck,.emailCheck{
+    width:15%;
+}
+.notificationSlider{
+    width: 70%;
+}
+.stromContainer,.severityNotificationContainer{
+    width:100%;
+}
+.locationNotification-content{
+    .bx--data-table-container{
+        min-width: unset !important;
+    }
+}

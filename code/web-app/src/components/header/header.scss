@@ -1,0 +1,75 @@
+.headerTab span{
+    font-weight: 600;
+}
+.accordionitem{
+.bx--accordion__content{
+    padding-bottom:0rem !important;
+     padding-top:0rem !important;
+}
+.bx--fieldset {
+    margin-bottom: 1rem;
+}
+.bx--accordion__item {
+    border-top: 0px solid #e0e0e0;
+}
+.bx--accordion__item:last-child {
+    border-bottom: 0px solid #e0e0e0;
+}
+}
+.filterOption{
+    height: 600px;
+    max-height: 600px;
+}
+.peferenceSection{
+    padding: 14px
+}
+.peferenceSectionSvg{
+float: right;
+}
+.prefernce{
+    position: absolute;
+    bottom: 55px;
+    width: 100%;
+    background: white;
+    z-index: 2;
+}
+.bx--header__name--prefix{
+    display: none;
+}
+.sub1{
+margin-left: 24px;
+padding-top: 9px;
+}
+.radio input[type='radio'] {
+    display: none;
+  }
+  
+  .radio label:before {
+    content: " ";
+    display: inline-block;
+    position: relative;
+    top: 5px;
+    margin: 0 5px 0 0;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    border: 1px solid #000000;
+    background-color: transparent;
+  }
+  .radio label {
+    position: relative;
+  }
+  .radio label input[type='radio']:checked+span {
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    top: 6px;
+    left: 5px;
+    display: block;
+    background-color: black;
+  }
+  
+  .hide{
+      display: none;
+  }

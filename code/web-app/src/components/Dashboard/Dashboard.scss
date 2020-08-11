@@ -1,0 +1,140 @@
+ .datatab{
+ max-height:55%; 
+    overflow-y: scroll;
+    padding: 16px;
+    margin-top:-1px;
+ }
+ .orderSearch{
+  padding-top: 12px;
+  width:85%;
+  float:left;
+  }
+   .ordernew{  
+   padding-top: 12px;
+    width:15%; 
+   float:right;
+  }
+.DashboardContainer{
+  margin-top: 48px;
+  margin-left: 256px ;
+  padding: 16px;
+  background-color: #000;
+  color:#fff;
+  
+  }
+  .smallView_Dashboard{
+  margin-top: 48px;
+  padding: 16px;
+  background-color: #000;
+  color:#fff;
+  }
+  .fullContainerGrid{
+      padding: 0px;
+  }
+  .alertsContainer,.mapContainer,.rightContainer{
+    padding: 16px;
+    background-color: #000;
+   // height: 100%;
+}
+ .rightContainer{
+    padding: 16px;
+    background-color: #fff;
+    height: 763px;
+   // height: 100%;
+}
+.alertsContainer{
+    height: 150px;
+    max-height: 200px;
+    //overflow-y: scroll;
+}
+.mapContainer{
+   margin-top: -5px;
+    height: 180px;
+  //   height: 75%;
+    .leaflet-container{
+        height: 530px;
+    }
+}   
+.lowerInsightsContainer{
+    padding: 16px;
+    background-color: #000;
+    margin-top: 3px;
+}
+#rightContainerWraper{
+    padding-left: 0px;
+}
+#leftContainerWraper{
+    padding-right: 3px;
+}
+#rightContainerWraper_mobile{
+    margin-top: 3px;
+}
+#lowerContainerLeft{
+    border-right: 1.5px solid #f0f0f0 ;
+    height: 148px;
+   
+}
+#lowerContainerLeft_mobile{
+    height: 148px;
+}
+.ibmSiteScroll{
+    max-height: 125px;
+    overflow-y: scroll;
+}
+#lowerContainerRight{
+    border-left: 1.5px solid #f0f0f0 ;
+    height: 148px;
+}
+#lowerContainerRight_mobile{
+    margin-top: 16px;
+    height: 148px;
+}
+  .alertIcon{
+      margin-right: 8px;
+  }
+  .filledIcon{
+      margin-right: 8px;
+  }
+  
+  .alertTitle,.newsTitle,.ibmSiteTitle,.chartTitle{
+      font-weight: bold;
+      padding-bottom: 8px;
+  }
+  
+  .newsFeed{
+      background-color: #f4f4f4;
+      padding: 8px;
+      margin-top: 12px;
+      height: 110px;
+  }
+  .tilteForNews{    
+      padding: 4px 0px;
+  }
+  .newsDesc{
+  font-size: 12px;
+  line-height: 18px;
+  }
+  .ibmSiteAddress{
+  font-size: 12px;
+  line-height: 24px;
+  }
+  .alertSettings{
+      float: right;
+  }
+  .minimize{
+      float: right
+  }
+  .mimizeIcon{
+      margin-right:15px;
+  }
+  .mimizeIconForCorner{
+      float: right 
+  }
+  .newsDate svg{
+      float: right;
+  }
+  .rightContainer{
+      .bx--tabs__nav{
+          width: 100% !important;
+      }
+  }

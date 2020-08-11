@@ -1,0 +1,92 @@
+.covidView,.stromView,.earthquakesView  {
+    position: relative;
+    left: 24px
+}
+.hidden { display:none; }
+
+.accordionitem .bx--accordion__content{
+    padding-right: 0%;
+}
+.alerLable{
+    padding: 8px 0px;
+}
+.bx--accordion__title{
+    font-weight: 600;
+}
+.addOption svg{
+fill: #0062ff;
+}
+.addOption a{
+position: relative;
+top: -4px;
+left: 14px;
+}
+.alertDataSourceWrap,.intrestWrap{
+    .bx--form-item.bx--checkbox-wrapper {
+        margin-bottom: 1rem !important;
+    }
+    .bx--checkbox-label{
+        color:#000000 !important;
+    }
+}
+.awarnessWrap{
+    .bx--radio-button-group--vertical .bx--radio-button-wrapper:not(:last-of-type) {
+        margin-bottom: 1rem !important;
+    }
+    .bx--radio-button__label{
+        color:#000000 !important;
+    }
+}
+.filterOption{
+    height: 600px;
+    max-height: 600px;
+    overflow-y: scroll;
+}
+.severity,.category{
+    margin-bottom: 10px;
+}
+.severitySelection,.categorySelection{
+display: inline;
+}
+.bx--select-input__wrapper{
+    width: 200px;
+}
+.viewCategoty legend,.viewServerity legend{
+    color:white !important;  
+}
+.bx--tooltip__trigger{
+// .bx--tooltip__trigger{
+    border-bottom: 0px;
+//}
+}
+// .bx--checkbox-label[data-contained-checkbox-state=mixed]:before, .bx--checkbox-label[data-contained-checkbox-state=true]:before, .bx--checkbox:checked+.bx--checkbox-label:before, .bx--checkbox:indeterminate+.bx--checkbox-label:before{
+//     background: #ffffff
+// }
+.viewServerity .bx--checkbox-label::before,.viewCategoty .bx--checkbox-label::before  {
+    content: '';
+    width: 1rem;
+    height: 1rem;
+    margin: 0.125rem;
+    position: absolute;
+    left: 0;
+    top: 0.125rem;
+    background-color: #ffffff00;
+    border: 1px solid #ffffff;
+    border-radius: 1px;
+}
+.viewServerity .bx--checkbox:checked + .bx--checkbox-label::before, .bx--checkbox:indeterminate + .bx--checkbox-label::before, .bx--checkbox-label[data-contained-checkbox-state='true']::before, .bx--checkbox-label[data-contained-checkbox-state='mixed']::before {
+    background-color: #393939;
+    border-color: #ffffff;
+    border-width: 1px;
+}
+.viewCategoty .bx--checkbox:checked + .bx--checkbox-label::before, .bx--checkbox:indeterminate + .bx--checkbox-label::before, .bx--checkbox-label[data-contained-checkbox-state='true']::before, .bx--checkbox-label[data-contained-checkbox-state='mixed']::before {
+    background-color: #393939;
+    border-color: #ffffff;
+    border-width: 1px;
+}
+.naturalEventOption{
+color:#252525;
+}
+.optionDesc{
+color:#a3a19d
+}
