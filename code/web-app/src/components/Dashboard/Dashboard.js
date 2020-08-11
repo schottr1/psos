@@ -9,6 +9,40 @@ import { Search } from 'carbon-components-react';
 import { DataTable } from 'carbon-components-react';
 import PreferenceModel from './../preference/preferenceModal'; 
 import axios from 'axios';
+import HeaderContainer from "carbon-components-react/lib/components/UIShell/HeaderContainer";
+import {
+  Content,
+  Header,
+  HeaderMenuButton,
+  HeaderName,
+  HeaderGlobalBar,
+  HeaderGlobalAction,
+  HeaderMenu,
+  HeaderMenuItem,
+  HeaderNavigation,
+  HeaderSideNavItems,
+  SkipToContent,
+  SideNav,
+  SideNavItems,
+  SideNavLink,
+  SideNavMenu,
+  SideNavMenuItem
+} from "carbon-components-react/lib/components/UIShell";
+import Search20 from "@carbon/icons-react/lib/search/20";
+import Notification20 from "@carbon/icons-react/lib/notification/20";
+import AppSwitcher20 from "@carbon/icons-react/lib/app-switcher/20";
+
+const Fade16 = () => (
+  <svg
+    width="16"
+    height="16"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 32 32"
+    aria-hidden="true"
+  >
+    <path d="M8.24 25.14L7 26.67a14 14 0 0 0 4.18 2.44l.68-1.88a12 12 0 0 1-3.62-2.09zm-4.05-7.07l-2 .35A13.89 13.89 0 0 0 3.86 23l1.73-1a11.9 11.9 0 0 1-1.4-3.93zm7.63-13.31l-.68-1.88A14 14 0 0 0 7 5.33l1.24 1.53a12 12 0 0 1 3.58-2.1zM5.59 10L3.86 9a13.89 13.89 0 0 0-1.64 4.54l2 .35A11.9 11.9 0 0 1 5.59 10zM16 2v2a12 12 0 0 1 0 24v2a14 14 0 0 0 0-28z" />
+  </svg>
+);
 
 // De-structure `DataTable` directly to get local references
 const { Table, TableHead, TableHeader, TableBody, TableCell, TableContainer, TableRow } = DataTable;
@@ -188,116 +222,111 @@ for (var i=0;i<csvData.length;i++){
     var [rows,headers] =[this.state.rows,this.state.header]; 
     	
     return (
-      <div
-        className={
-          this.state.isSideNavOpen === false
-            ? 'smallView_Dashboard'
-            : 'DashboardContainer'
-        }
-      > 
-        <div className="bx--grid fullContainerGrid">
-          <div className="bx--row padding-0">
-            <div className="bx--col-xlg-16 bx--col-lg-16 bx--col-md-8">
-              <div className="bx--row padding-0">
-                <div
-                  className="bx--col-xlg-11 bx--col-lg-11 bx--col-md-5 bx--col-sm-4"
-                  id={
-                    this.state.isMobileView === true
-                      ? 'leftContainerWraper_mobile'
-                      : 'leftContainerWraper'
-                  }
-                >
-                  <div className="mapContainer">
-                    <span className="minimize">
-                      <span className="mimizeIcon">
-                        <Minimize20 />
-                      </span>
-                      <Settings32 />
-                    </span>
-                   <> <h3>Welcome Back, Jane</h3></>
-                   <><div style={{"padding":"10px"}}>Since Your Last Login: 
-                  <h4><span style={{"color":"yellow"}}>{this.state.rowcount}</span>  Filed orders&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style={{"color":"yellow"}}>0</span> Verified orders</h4></div></>
-                   	   <div className='Form-module--buttonRow'>
-                   	  <div className="orderSearch"> 
-                        <Search
-                           className="some-class"
-                           closeButtonLabelText="Clear search input"
-                           defaultValue=""
-                           id="search-1"
-                           labelText="Search"
-                           name=""
-                           onChange={this.handleChange}
-                           placeHolderText="Search officer name, agency, or case #"
-                           size="xl"
-                           type="text"
-                         /> </div>
-                        <div className="ordernew"> 
-                           <button className='Form-module--button bx--btn bx--btn--primary' type='button' onClick={this.layerPreferenceClick} >New +</button>
-                           <div className={!this.state.layerPreference ? 'hide' : ''}>
-                           <PreferenceModel layerPrefCancel={this.layerPreferenceCancel} />
-                         </div>
-                           </div>
-                          </div>
-                          </div>
-                          <div className="datatab">
-                    <>
-                      <DataTable isSortable
-	//        rows={rows.filter((row) => row.cells[0].value.startsWith(this.state.searchFilter))}
-                	rows={rows}
-                        headers={headers}
-                        render={({ rows, headers, getHeaderProps }) => (
-                          <TableContainer title="Suppression Orders Database">
-                            <Table>
-                              <TableHead>
-                                <TableRow>
-                                  {headers.map((header) => (
-                                    <TableHeader key={header.key} {...getHeaderProps({ header })}>
-                                      {header.header}
-                                    </TableHeader>
-                                  ))}
-                                </TableRow>
-                              </TableHead>
-                              <TableBody>
-			        {rows.map((row) => (
-                                  <TableRow key={row.id}>
-                                    {row.cells.map((cell) => (
-                                      <TableCell key={cell.id}>{cell.value}</TableCell>
-                                    ))}
-                                  </TableRow>
-                                ))}
-                              </TableBody>
-                            </Table>
-                          </TableContainer>
-                        )}
-                      />
-                      </>
-                  </div>
-
-                  
-                </div>
-                <div
-                  className="bx--col-xlg-5 bx--col-lg-5 bx--col-md-3 bx--col-sm-4 "
-                  id={
-                    this.state.isMobileView === true
-                      ? 'rightContainerWraper_mobile'
-                      : 'rightContainerWraper'
-                  }
-                >
-                  <div className="rightContainer">
-                    <NewsAndAlert
-                      newsDetails={newsDetailsState}
-                      alertDetail={alertDetailState}
-                    />
-                    {/* <div className="newsTitle"> News Feed<span className="minimize"><span className="mimizeIcon"><Minimize20 /></span><Settings32 /></span></div> */}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <HeaderContainer
+        render={({ isSideNavExpanded, onClickSideNavExpand }) => (
+          <>
+            <Header aria-label="IBM Platform Name">
+              <SkipToContent />
+              <HeaderMenuButton
+                aria-label="Open menu"
+                onClick={onClickSideNavExpand}
+                isActive={isSideNavExpanded}
+              />
+              <HeaderName href="#" prefix="IBM">
+                [Platform]
+              </HeaderName>
+              <HeaderNavigation aria-label="IBM [Platform]">
+                <HeaderMenuItem href="#">Link 1</HeaderMenuItem>
+                <HeaderMenuItem href="#">Link 2</HeaderMenuItem>
+                <HeaderMenuItem href="#">Link 3</HeaderMenuItem>
+                <HeaderMenu aria-label="Link 4" menuLinkName="Link 4">
+                  <HeaderMenuItem href="#one">Sub-link 1</HeaderMenuItem>
+                  <HeaderMenuItem href="#two">Sub-link 2</HeaderMenuItem>
+                  <HeaderMenuItem href="#three">Sub-link 3</HeaderMenuItem>
+                </HeaderMenu>
+              </HeaderNavigation>
+              <HeaderGlobalBar>
+                <HeaderGlobalAction
+                  aria-label="Search"
+                  onClick={null}>
+                  <Search20 />
+                </HeaderGlobalAction>
+                <HeaderGlobalAction
+                  aria-label="Notifications"
+                  onClick={null}>
+                  <Notification20 />
+                </HeaderGlobalAction>
+                <HeaderGlobalAction
+                  aria-label="App Switcher"
+                  onClick={null}>
+                  <AppSwitcher20 />
+                </HeaderGlobalAction>
+              </HeaderGlobalBar>
+              <SideNav
+                aria-label="Side navigation"
+                expanded={isSideNavExpanded}>
+                <SideNavItems>
+                  <HeaderSideNavItems hasDivider={true}>
+                    <HeaderMenuItem href="#">Link 1</HeaderMenuItem>
+                    <HeaderMenuItem href="#">Link 2</HeaderMenuItem>
+                    <HeaderMenuItem href="#">Link 3</HeaderMenuItem>
+                    <HeaderMenu aria-label="Link 4" menuLinkName="Link 4">
+                      <HeaderMenuItem href="#">Sub-link 1</HeaderMenuItem>
+                      <HeaderMenuItem href="#">Sub-link 2</HeaderMenuItem>
+                      <HeaderMenuItem href="#">Sub-link 3</HeaderMenuItem>
+                    </HeaderMenu>
+                  </HeaderSideNavItems>
+                  <SideNavMenu renderIcon={Fade16} title="Category title">
+                    <SideNavMenuItem href="javascript:void(0)">
+                      Link
+                    </SideNavMenuItem>
+                    <SideNavMenuItem href="javascript:void(0)">
+                      Link
+                    </SideNavMenuItem>
+                    <SideNavMenuItem href="javascript:void(0)">
+                      Link
+                    </SideNavMenuItem>
+                  </SideNavMenu>
+                  <SideNavMenu renderIcon={Fade16} title="Category title">
+                    <SideNavMenuItem href="javascript:void(0)">
+                      Link
+                    </SideNavMenuItem>
+                    <SideNavMenuItem href="javascript:void(0)">
+                      Link
+                    </SideNavMenuItem>
+                    <SideNavMenuItem href="javascript:void(0)">
+                      Link
+                    </SideNavMenuItem>
+                  </SideNavMenu>
+                  <SideNavMenu
+                    renderIcon={Fade16}
+                    title="Category title"
+                    isActive={true}>
+                    <SideNavMenuItem href="javascript:void(0)">
+                      Link
+                    </SideNavMenuItem>
+                    <SideNavMenuItem
+                      aria-current="page"
+                      href="javascript:void(0)">
+                      Link
+                    </SideNavMenuItem>
+                    <SideNavMenuItem href="javascript:void(0)">
+                      Link
+                    </SideNavMenuItem>
+                  </SideNavMenu>
+                  <SideNavLink renderIcon={Fade16} href="javascript:void(0)">
+                    Link
+                  </SideNavLink>
+                  <SideNavLink renderIcon={Fade16} href="javascript:void(0)">
+                    Link
+                  </SideNavLink>
+                </SideNavItems>
+              </SideNav>
+            </Header>
+            {/* <StoryContent /> */}
+          </>
+        )}
+      />
     );
   }
 }
