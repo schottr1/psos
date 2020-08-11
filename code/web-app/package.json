@@ -6,6 +6,7 @@
     "@carbon/charts": "^0.30.10",
     "@carbon/charts-react": "^0.30.10",
     "@carbon/grid": "^10.9.2",
+    "@carbon/icons-react": "^10.15.0",
     "@carbon/pictograms-react": "^10.10.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",

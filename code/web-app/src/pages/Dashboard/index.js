@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Dashboard from '../../components/Dashboard';
+import Shell from '../../components/Shell';
 
 class DashboardPage extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class DashboardPage extends Component {
   render() {
     return (
       <>
-        <Dashboard />
+        <Shell />
       </>
     );
   }

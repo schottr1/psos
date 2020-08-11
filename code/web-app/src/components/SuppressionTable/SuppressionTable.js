@@ -1,8 +1,18 @@
 import React from "react";
 import { render } from "react-dom";
 
-const SupressionTable = (props) => {
-    return (
+import { Minimize20, Settings32 } from '@carbon/icons-react';
+import { Search } from 'carbon-components-react';
+import PreferenceModel from '../preference/preferenceModal'
+import { DataTable } from 'carbon-components-react';
+
+import { Content } from "carbon-components-react/lib/components/UIShell";
+
+// De-structure `DataTable` directly to get local references
+const { Table, TableHead, TableHeader, TableBody, TableCell, TableContainer, TableRow } = DataTable;
+
+const SuppressionTable = (props) => {
+    const content = (
     <div> 
         <div className="bx--grid fullContainerGrid">
         <div className="bx--row padding-0">
@@ -52,9 +62,9 @@ const SupressionTable = (props) => {
                         </div>
                         <div className="datatab">
                 <>
-                    <DataTable isSortable
-                rows={rows}
-                    headers={headers}
+                    {/* <DataTable isSortable
+                rows={props.rows}
+                    headers={props.headers}
                     render={({ rows, headers, getHeaderProps }) => (
                         <TableContainer title="Suppression Orders Database">
                         <Table>
@@ -79,7 +89,7 @@ const SupressionTable = (props) => {
                         </Table>
                         </TableContainer>
                     )}
-                    />
+                    /> */}
                     </>
                 </div>
 
@@ -94,10 +104,6 @@ const SupressionTable = (props) => {
                 }
             >
                 <div className="rightContainer">
-                <NewsAndAlert
-                    newsDetails={newsDetailsState}
-                    alertDetail={alertDetailState}
-                />
                 {/* <div className="newsTitle"> News Feed<span className="minimize"><span className="mimizeIcon"><Minimize20 /></span><Settings32 /></span></div> */}
                 </div>
             </div>
@@ -106,5 +112,9 @@ const SupressionTable = (props) => {
         </div>
     </div>
     </div>
-  )
+  );
+
+  return <Content id="main-content">{content}</Content>;
 };
+
+export default SuppressionTable;
