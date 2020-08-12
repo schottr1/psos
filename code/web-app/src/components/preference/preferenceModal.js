@@ -10,9 +10,24 @@ import toolTipNodesForPref from './preferenceTooltip';
 import {
     Tab, Tabs, RadioButtonGroup, RadioButton,
     Checkbox, Slider, DataTable, Select, SelectItem,
-    TextArea,Form, FormGroup, TextInput, DatePicker, DatePickerInput
+    TextArea,Form, FormGroup, TextInput, DatePicker, DatePickerInput, FileUploader
 } from 'carbon-components-react';
 import axios from 'axios';
+
+const fileUploader = () => {
+	return {
+	  labelTitle: 'Upload',
+	  labelDescription: 'only .jpg files at 500mb or less',
+	  buttonLabel: 'Add files',
+	  buttonKind: 'primary',
+	  filenameStatus: 'edit',
+	  accept: [ '.jpg', '.png' ],
+	  iconDescription: "Clear file",
+	  onChange: (e) => { console.log('onChange: ', e.target) },
+	  onClick: (e) => { console.log('onClick: ', e.target) },
+	  onDelete: (e) => { console.log('onDelete: ', e.target) },
+	};
+  }
 
 export default class preferenceModal extends Component {
    
@@ -121,7 +136,7 @@ export default class preferenceModal extends Component {
     	  	  })
     	    }else 
     	    	this.setState({[nam]: val});
-    	  }
+		  }
  
     render() {
         const self = this.state;
@@ -158,6 +173,9 @@ export default class preferenceModal extends Component {
                                     <Form onSubmit={this.mySubmitHandler}>
                                     <FormGroup
                                     labelPosition="right">
+
+									<FileUploader {...fileUploader()} />
+
                                     <div style={{ paddingBottom: '12px',"float":"left","width":"50%" }}> 
                                           <TextInput
                                         id="firstName"
