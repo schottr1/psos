@@ -6,15 +6,28 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000
 
 const cloudant = require('./lib/cloudant.js');
+const cos = require('./lib/cos.js');
+
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
+
+//var fileUpload = require('express-fileupload');
+const { v4: uuidv4 } = require('uuid');
+
+var fs = require('fs')
 
 const app = express();
 app.use(bodyParser.json());
+/*app.use(fileUpload({
+  useTempFiles : true,
+  tempFileDir : '/tmp/'
+}));*/
 
 const swaggerInline = require('swagger-inline');
 swaggerInline(['./*.js', './test/*.js'], {
   base: 'swaggerBase.json',
 }).then((generatedSwagger) => {
-  console.log(generatedSwagger)
+  //console.log(generatedSwagger)
   var swaggerDocument = JSON.parse(generatedSwagger)
   var swaggerUi = require('swagger-ui-express')
   var options = {
@@ -43,7 +56,7 @@ const handleError = (res, err) => {
  *       type: "String"
  */
 
-app.get('/api/health', (req, res) => {
+app.get('/health', (req, res) => {
   return res.json({
     status: 'ok'
   });
@@ -81,6 +94,22 @@ app.get('/api/health', (req, res) => {
  *   - firstName
  */
 
+/**
+ * @schema SuppressionDoc
+ * type: object
+ * properties:
+ *   refID:
+ *     type: string
+ *   mimeType:
+ *     type: string
+ *   size:
+ *     type: integer
+ * required:
+ *   - refID
+ *   - mimeType
+ *   - size
+ */
+
  /**
  * @schema Suppression
  * type: object
@@ -113,6 +142,10 @@ app.get('/api/health', (req, res) => {
  *     $ref: "#/components/schemas/Person"
  *   defenseAttorney:
  *     $ref: "#/components/schemas/Person"
+ *   originalDocs:
+ *     type: array
+ *     items:
+ *       $ref: "#/components/schemas/SuppressionDoc"
  *   verifiedDate:
  *     type: string
  *   primaryOfficers:
@@ -135,7 +168,7 @@ app.get('/api/health', (req, res) => {
 /**
  * Get a list of suppression orders from the system
  *
- * @api [get] /v1/suppression
+ * @api [get] /api/v1/suppression
  * summary: "Gets suppression orders from the system"
  * parameters:
  *   - in: query
@@ -167,9 +200,16 @@ app.get('/api/health', (req, res) => {
  *   "200":
  *     description: "A list of suppression orders, matching the specified query parameters"
  *     schema:
- *       type: array
- *       items:
- *         $ref: "#/components/schemas/Suppression"
+ *       type: object
+ *       properties:
+ *   id:
+ *     type: string
+ *   date:
+ *     type: string
+ *   state:
+ *     type: string
+ *   caseNumber:
+ *     type: string
  */
 
 app.get('/api/v1/suppression', (req, res) => {
@@ -190,7 +230,7 @@ app.get('/api/v1/suppression', (req, res) => {
 /**
  * Get a suppression order by ID
  * 
- * @api [get] /v1/suppression/{id}
+ * @api [get] /api/v1/suppression/{id}
  * summary: "Get a suppression order from the system, by ID"
  * parameters:
  *   - in: path
@@ -217,7 +257,7 @@ app.get('/api/v1/suppression/:id', (req, res) => {
 /**
  * Create a new suppression order
  *
- * @api [post] /v1/suppression
+ * @api [post] /api/v1/suppression
  * summary: "Adds a new suppression order to the system"
  * parameters:
  *   - in: body
@@ -245,13 +285,14 @@ app.post('/api/v1/suppression', (req, res) => {
   const issuesLitigated = req.body.issuesLitigated || [];
   const prosecutor = req.body.caseNumber || {};
   const defenseAttorney = req.body.defenseAttorney || {}; 
+  const suppressionDocs = req.body.suppressionDocs || [];
   const verifiedDate = req.body.verifiedDate || '';
   const primaryOfficers = req.body.primaryOfficers || [];
   const attendingOfficers = req.body.attendingOfficers || [];
 
   cloudant
     .create(date, state, caseNumber, summary, motionGranted, writtenOrder, foundNotCredible, issuesLitigated,
-      prosecutor, defenseAttorney, verifiedDate, primaryOfficers, attendingOfficers)
+      prosecutor, defenseAttorney, suppressionDocs, verifiedDate, primaryOfficers, attendingOfficers)
     .then(data => {
       if (data.statusCode != 201) {
         res.sendStatus(data.statusCode)
@@ -269,20 +310,46 @@ app.post('/api/v1/suppression', (req, res) => {
  * not included will be left unmodified.
  * 
  * The new rev of the suppression order will be returned if successful
+ *
+ * @api [patch] /api/v1/suppression
+ * summary: "Updates a suppression order in the system"
+ * parameters:
+ *   - in: path
+ *     name: id
+ *     schema:
+ *       type: string
+ *     required: true
+ *     description: ID of the supression order to update
+ *   - in: body
+ *     schema:
+ *       $ref: "#/components/schemas/Suppression"
+ *     required: false
+ * responses:
+ *   "201":
+ *     description: "Suppression order updated"
+ *     schema:
+ *         $ref: "#/components/schemas/Suppression"
  */
 
 app.patch('/api/v1/suppression/:id', (req, res) => {
-  // TO BE MODIFIED
-  const type = req.body.type || '';
-  const name = req.body.name || '';
-  const description = req.body.description || '';
-  const userID = req.body.userID || '';
-  const quantity = req.body.quantity || '';
-  const location = req.body.location || '';
-  const contact = req.body.contact || '';
+  const date = req.body.date || '';
+  const state = req.body.state;
+  const caseNumber = req.body.caseNumber || '';
+  const summary = req.body.summary || '';
+  const motionGranted = req.body.motionGranted || false;
+  const writtenOrder = req.body.writtenOrder || false;
+  const foundNotCredible = req.body.foundNotCredible || false;
+  const issuesLitigated = req.body.issuesLitigated || [];
+  const prosecutor = req.body.caseNumber || {};
+  const defenseAttorney = req.body.defenseAttorney || {}; 
+  const suppressionDocs = req.body.suppressionDocs || [];
+  const verifiedDate = req.body.verifiedDate || '';
+  const primaryOfficers = req.body.primaryOfficers || [];
+  const attendingOfficers = req.body.attendingOfficers || [];
 
   cloudant
-    .update(req.params.id, type, name, description, quantity, location, contact, userID)
+    .update(req.params.id, date, state, caseNumber, summary, motionGranted, writtenOrder, foundNotCredible, issuesLitigated,
+      prosecutor, defenseAttorney, suppressionDocs, verifiedDate, primaryOfficers, attendingOfficers)
     .then(data => {
       if (data.statusCode != 200) {
         res.sendStatus(data.statusCode)
@@ -296,7 +363,7 @@ app.patch('/api/v1/suppression/:id', (req, res) => {
 /**
  * Delete a suppression order
  * 
- * @api [delete] /v1/suppression/{id}
+ * @api [delete] /api/v1/suppression/{id}
  * summary: "Deletes a new suppression order from the system"
  * parameters:
  *   - in: path
@@ -315,6 +382,65 @@ app.delete('/api/v1/suppression/:id', (req, res) => {
     .deleteById(req.params.id)
     .then(statusCode => res.sendStatus(statusCode))
     .catch(err => handleError(res, err));
+});
+
+/**
+ * Upload an original suppression order document
+ *
+ * @api [post] /api/v1/suppressionDoc
+ * summary: Upload an original suppression order document
+ * consumes:
+ *   - multipart/form-data
+ * produces:
+ *   - application/json
+ * parameters:
+ *   - in: formdata
+ *     name: upfile
+ *     type: file
+ *     description: The file to upload
+ * responses:
+ *   "201":
+ *     description: Suppression document uploaded
+ *     schema:
+ *       type: object
+ *       properties:
+ *         id: 
+ *           type: string
+ *           description: Unique ID of the document, which can used to retieve it
+ *         name: 
+ *           type: string
+ *           description: The origional name of the document
+ *         mimetype: 
+ *           type: string
+ *           description: The mimetype of the document
+ *         size: 
+ *           type: integer
+ *           description: The size of the document
+ */
+app.post('/api/v1/suppressionDoc', upload.single('upfile'), (req, res) => {
+  if(!req.file) {
+    res.send({
+      status: false,
+      message: 'No file uploaded'
+    })
+  } else {
+    let uniquename = uuidv4() + '-' + req.file.originalname
+    cos
+      .create(uniquename, fs.readFileSync(req.file.path))
+      .then(() => {
+        res.send({
+          status: 201,
+          message: 'File is uploaded',
+          data: {
+              id: uniquename,
+              name: req.file.originalname,
+              mimetype: req.file.mimetype,
+              size: req.file.size
+          }
+        })
+      })
+      .catch(err => handleError(res, err));
+  }
 });
 
 const server = app.listen(port, () => {
