@@ -49,7 +49,15 @@ function doCreateObject(key, data) {
         Body: data
     }).promise();
 }
- 
+
+function doGetObject(key) {
+    console.log('Getting object: ' + key);
+    return cos.getObject({
+        Bucket: cos_bucket_name,
+        Key: key
+    }).promise();
+}
+
 function doDeleteObject(key) {
     console.log('Deleting object');
     return cos.deleteObject({
@@ -60,5 +68,6 @@ function doDeleteObject(key) {
 
 module.exports = {
     create: doCreateObject,
+    get: doGetObject,
     delete: doDeleteObject,
   };
