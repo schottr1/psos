@@ -4,7 +4,7 @@ const cloudant_id = process.env.CLOUDANT_ID || '<cloudant_id>'
 const cloudant_apikey = process.env.CLOUDANT_IAM_APIKEY || '<cloudant_apikey>';
 
 // UUID creation
-const uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 
 var cloudant = new Cloudant({
     account: cloudant_id,
@@ -166,6 +166,7 @@ function deleteById(id, rev) {
  * @param {Array} issuesLitigated - list of issues litigated? 
  * @param {Object} prosecutor - proesctor lastName and firstName
  * @param {Object} defenseAttorney - defense attorney lastName and firstName
+ * @param {Array} suppressionDocs - list of references to origional docs stored
  * @param {String} verifiedDate - the date this data was verified against the actual order?
  * @param {Array} primaryOfficers - list of primary officers names
  * @param {Array} attendingOfficers - list of named officers who were attending
@@ -174,7 +175,7 @@ function deleteById(id, rev) {
  * when the call to the DB completes
  */
 function create(date, state, caseNumber, summary, motionGranted, writtenOrder, foundNotCredible, issuesLitigated,
-    prosecutor, defenseAttorney, verifiedDate, primaryOfficers, attendingOfficers) {
+    prosecutor, defenseAttorney, suppressionDocs, verifiedDate, primaryOfficers, attendingOfficers) {
     return new Promise((resolve, reject) => {
         let itemId = uuidv4();
         let whenCreated = Date.now();
@@ -191,6 +192,7 @@ function create(date, state, caseNumber, summary, motionGranted, writtenOrder, f
             issuesLitigated: issuesLitigated,
             prosecutor: prosecutor,
             defenseAttorney: defenseAttorney,
+            suppressionDocs: suppressionDocs,
             verifiedDate: verifiedDate,
             primaryOfficers: primaryOfficers,
             attendingOfficers: attendingOfficers,
@@ -214,18 +216,26 @@ function create(date, state, caseNumber, summary, motionGranted, writtenOrder, f
  * 
  * The following parameters can be null
  * 
- * @param {String} type - the type of the item
- * @param {String} name - the name of the item
- * @param {String} description - the description of the item
- * @param {String} quantity - the quantity available 
- * @param {String} location - the GPS location of the item
- * @param {String} contact - the contact info 
- * @param {String} userID - the ID of the user 
+ * @param {String} date - the date the order was filed
+ * @param {String} state - the satte in which the order was filed
+ * @param {String} caseNumber - the case number of the order
+ * @param {String} summary - the summary description of the order 
+ * @param {Boolean} motionGranted - was the order granted?
+ * @param {Boolean} writtenOrder - was this a written order? 
+ * @param {Boolean} foundNotCredible - were the officer(s) found Not Credible? 
+ * @param {Array} issuesLitigated - list of issues litigated? 
+ * @param {Object} prosecutor - proesctor lastName and firstName
+ * @param {Object} defenseAttorney - defense attorney lastName and firstName
+ * @param {Array} suppressionDocs - list of references to origional docs stored
+ * @param {String} verifiedDate - the date this data was verified against the actual order?
+ * @param {Array} primaryOfficers - list of primary officers names
+ * @param {Array} attendingOfficers - list of named officers who were attending
  * 
  * @return {Promise} - promise that will be resolved (or rejected)
  * when the call to the DB completes
  */
-function update(id, type, name, description, quantity, location, contact, userID) {
+function update(date, state, caseNumber, summary, motionGranted, writtenOrder, foundNotCredible, issuesLitigated,
+    prosecutor, defenseAttorney, suppressionDocs, verifiedDate, primaryOfficers, attendingOfficers) {
     return new Promise((resolve, reject) => {
         db.get(id, (err, document) => {
             if (err) {
@@ -235,14 +245,21 @@ function update(id, type, name, description, quantity, location, contact, userID
                     _id: document._id,
                     _rev: document._rev,            // Specifiying the _rev turns this into an update
                 }
-                if (type) {item["type"] = type} else {item["type"] = document.type};
-                if (name) {item["name"] = name} else {item["name"] = document.name};
-                if (description) {item["description"] = description} else {item["description"] = document.description};
-                if (quantity) {item["quantity"] = quantity} else {item["quantity"] = document.quantity};
-                if (location) {item["location"] = location} else {item["location"] = document.location};
-                if (contact) {item["contact"] = contact} else {item["contact"] = document.contact};
-                if (userID) {item["userID"] = userID} else {item["userID"] = document.userID};
- 
+                if (date) {item["date"] = date} else {item["date"] = document.date};
+                if (state) {item["state"] = state} else {item["state"] = document.state};
+                if (caseNumber) {item["caseNumber"] = caseNumber} else {item["caseNumber"] = document.caseNumber};
+                if (summary) {item["summary"] = summary} else {item["summary"] = document.summary};
+                if (motionGranted) {item["motionGranted"] = motionGranted} else {item["motionGranted"] = document.motionGranted};
+                if (writtenOrder) {item["writtenOrder"] = writtenOrder} else {item["writtenOrder"] = document.writtenOrder};
+                if (foundNotCredible) {item["foundNotCredible"] = foundNotCredible} else {item["foundNotCredible"] = document.foundNotCredible};
+                if (issuesLitigated) {item["issuesLitigated"] = issuesLitigated} else {item["issuesLitigated"] = document.issuesLitigated};
+                if (prosecutor) {item["prosecutor"] = prosecutor} else {item["prosecutor"] = document.prosecutor};
+                if (defenseAttorney) {item["defenseAttorney"] = defenseAttorney} else {item["defenseAttorney"] = document.defenseAttorney};
+                if (suppressionDocs) {item["suppressionDocs"] = suppressionDocs} else {item["suppressionDocs"] = document.suppressionDocs};
+                if (verifiedDate) {item["verifiedDate"] = verifiedDate} else {item["verifiedDate"] = document.verifiedDate};
+                if (primaryOfficers) {item["primaryOfficers"] = primaryOfficers} else {item["primaryOfficers"] = document.primaryOfficers};
+                if (attendingOfficers) {item["attendingOfficers"] = attendingOfficers} else {item["attendingOfficers"] = document.attendingOfficers};
+
                 db.insert(item, (err, result) => {
                     if (err) {
                         console.log('Error occurred: ' + err.message, 'create()');
