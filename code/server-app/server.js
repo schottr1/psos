@@ -452,7 +452,7 @@ app.post('/api/v1/suppressionDoc', upload.single('upfile'), (req, res) => {
 /**
  * Get an original suppression order document
  *
- * @api [get] /api/v1/suppressionDoc{id}
+ * @api [get] /api/v1/suppressionDoc/{id}
  * summary: Get an original suppression order document
  * parameters:
  *   - in: path
@@ -485,7 +485,7 @@ app.get('/api/v1/suppressionDoc/:id', (req, res) => {
 /**
  * Delete an original suppression order document
  *
- * @api [delete] /api/v1/suppressionDoc{id}
+ * @api [delete] /api/v1/suppressionDoc/{id}
  * summary: Delete an original suppression order document
  * parameters:
  *   - in: path
