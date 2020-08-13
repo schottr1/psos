@@ -10,6 +10,7 @@ const cos = require('./lib/cos.js');
 
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
+var mime = require("mime")
 
 //var fileUpload = require('express-fileupload');
 const { v4: uuidv4 } = require('uuid');
@@ -441,6 +442,39 @@ app.post('/api/v1/suppressionDoc', upload.single('upfile'), (req, res) => {
       })
       .catch(err => handleError(res, err));
   }
+});
+
+/**
+ * Get an original suppression order document
+ *
+ * @api [get] /api/v1/suppressionDoc{id}
+ * summary: Get an original suppression order document
+ * parameters:
+ *   - in: path
+ *     name: id
+ *     schema:
+ *       type: string
+ *     required: true
+ *     description: ID of the supression order to get
+ * responses:
+ *   "200":
+ *     description: Suppression document obtained
+ *     schema:
+ *       type: file
+ */
+app.get('/api/v1/suppressionDoc/:id', (req, res) => {
+  cos
+    .get(req.params.id)
+    .then((data) => {
+      console.log(data.Body);
+      res.writeHead(200, {
+        'Content-Type': mime.getType(req.params.id),
+        'Content-Disposition': 'attachment; filename=' + req.params.id,
+        'Content-Length': data.Body.length
+      });
+      res.end(data.Body);
+    })
+    .catch(err => handleError(res, err));
 });
 
 const server = app.listen(port, () => {
