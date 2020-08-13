@@ -385,6 +385,11 @@ app.delete('/api/v1/suppression/:id', (req, res) => {
     .catch(err => handleError(res, err));
 });
 
+const handleCOSError = (res, err) => {
+  const status = err.statusCode !== undefined && err.statusCode > 0 ? err.statusCode : 500;
+  return res.status(status).json(err.message);
+};
+
 /**
  * Upload an original suppression order document
  *
@@ -440,7 +445,7 @@ app.post('/api/v1/suppressionDoc', upload.single('upfile'), (req, res) => {
           }
         })
       })
-      .catch(err => handleError(res, err));
+      .catch(err => handleCOSError(res, err));
   }
 });
 
@@ -474,7 +479,30 @@ app.get('/api/v1/suppressionDoc/:id', (req, res) => {
       });
       res.end(data.Body);
     })
-    .catch(err => handleError(res, err));
+    .catch(err => handleCOSError(res, err));
+});
+
+/**
+ * Delete an original suppression order document
+ *
+ * @api [delete] /api/v1/suppressionDoc{id}
+ * summary: Delete an original suppression order document
+ * parameters:
+ *   - in: path
+ *     name: id
+ *     schema:
+ *       type: string
+ *     required: true
+ *     description: ID of the supression order to delete
+ * responses:
+ *   "200":
+ *     description: Suppression document deleted
+ */
+app.delete('/api/v1/suppressionDoc/:id', (req, res) => {
+  cos
+    .delete(req.params.id)
+    .then(() => res.sendStatus(204))
+    .catch(err => handleCOSError(res, err));
 });
 
 const server = app.listen(port, () => {
