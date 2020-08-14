@@ -82,15 +82,18 @@ export default class preferenceModal extends Component {
     	  }
   
       mySubmitHandler = (event) => {
+    	  this.setState({ errorMessage: "" });
     	    event.preventDefault();
     	    var dt= Date.now();
     	    this.setState({['id']: 'id'+dt});
     	    this.setState({['_id']: 'id'+dt});
     	    this.setState({['whenCreated']: dt}); 
      	    console.log("You are submitting " + this.state); 
-     	   console.log(JSON.stringify(this.state));
-     	    	
-     	 axios.post('http://psos-server.us-east.mybluemix.net/api/v1/suppression', this.state)
+     	   console.log(JSON.stringify(this.state)); 
+     	   
+     	axios.post('https://psos-server.us-east.mybluemix.net/api/v1/suppression', //this.state)
+     	//axios.post('/api/addsuppression', 
+     			this.state) 
          .then(response => {
         	 console.log(JSON.stringify(response));  
         	 this.setState({ message: "New Suppression Order added successfully!!!" });
@@ -99,7 +102,27 @@ export default class preferenceModal extends Component {
              console.error('There was an error adding the new Suppression Order !', error);
          });
       }
-      
+      upload= (event) => {
+    	  this.setState({ errorMessage: "" }); 
+    	  var fileObj = document.getElementById('xmlfile').files[0];
+    	  if (fileObj==null || fileObj==undefined){ 
+    		  this.setState({ errorMessage: "Please upload a valid file" }); 
+    		  return;
+		  }
+		  axios.post('https://psos-server.us-east.mybluemix.net/api/v1/addsuppressiondoc', fileObj, {
+//    	  axios.post('/api/addsuppressiondoc', fileObj, {
+    	        headers: {
+    	          'Content-Type': 'multipart/form-data'
+    	        }
+    	    }).then(response => {
+        	 console.log(JSON.stringify(response));  
+        	 this.setState({ message: "New Suppression Order File Uploaded successfully!!!" });
+         }).catch(error => {
+             this.setState({ errorMessage: error.message });
+             console.error('There was an error uploading the  Suppression Order file !', error);
+         });
+
+      }
       myChangeHandler = (event) => {
     	    let nam = event.target.id;
     	    let val = event.target.value; 
@@ -145,7 +168,7 @@ export default class preferenceModal extends Component {
                     passiveModal={false}
                     primaryButtonDisabled={false}
                     primaryButtonText="Save"
-                    secondaryButtonText="Cancel"
+                    secondaryButtonText="Close"
                     selectorPrimaryFocus="[data-modal-primary-focus]"
                     size={'lg'}
                 >
@@ -155,6 +178,12 @@ export default class preferenceModal extends Component {
                         <h5 style={{"color": "#ff0000", "width": "100%"}}>{this.state.errorMessage !== '' ? this.state.errorMessage:''} </h5>
                            
                                     <div className="prefRiskAlerts-content tabContent">
+                                     <input id="xmlfile" type="file" style={{"width": "400px","height":"50px", "border":"1px solid #000","text-align": "left","padding":"10px" }} />
+                                     &nbsp;&nbsp;<button type="button" className='Form-module--button bx--btn bx--btn--primary' onClick={this.upload.bind(this)}>Upload</button>
+                                    <h5 style={{"color": "blue", "text-align":"left", "width": "100%"}}>OR</h5>
+                                    <hr />
+                                    
+                                   
                                     <Form onSubmit={this.mySubmitHandler}>
                                     <FormGroup
                                     labelPosition="right">
@@ -172,7 +201,7 @@ export default class preferenceModal extends Component {
                                                  id="badge"
                                                  labelPosition="right"
                                                  invalidText="Invalid error message."
-                                                 labelText="Badge #"
+                                                 labelText="Badge#"
                                                  placeholder=""
                                                 onChange={this.myChangeHandler}
                                                />
@@ -192,7 +221,7 @@ export default class preferenceModal extends Component {
                                           </DatePicker> 
                                           
                                           <TextInput 
-                                          id="casenumber"
+                                          id="caseNumber"
                                           labelPosition="right"
                                           cols={10}
                                           invalidText="Invalid error message."
