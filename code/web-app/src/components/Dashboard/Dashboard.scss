@@ -1,5 +1,5 @@
  .datatab{
- max-height:55%; 
+ max-height:47%; 
     overflow-y: scroll;
     padding: 16px;
     margin-top:-1px;
@@ -15,12 +15,11 @@
    float:right;
   }
 .DashboardContainer{
-  margin-top: 48px;
+  margin-top: 40px;
   margin-left: 256px ;
   padding: 16px;
   background-color: #000;
   color:#fff;
-  
   }
   .smallView_Dashboard{
   margin-top: 48px;
@@ -29,7 +28,7 @@
   color:#fff;
   }
   .fullContainerGrid{
-      padding: 0px;
+      padding: 10px;
   }
   .alertsContainer,.mapContainer,.rightContainer{
     padding: 16px;
